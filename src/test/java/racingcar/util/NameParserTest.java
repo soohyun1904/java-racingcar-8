@@ -7,7 +7,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import racingcar.domain.Name;
 import racingcar.exception.message.ErrorMessage;
 import racingcar.exception.InputParsingException;
-
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
