@@ -14,6 +14,34 @@ public class Cars{
         this.cars = createCars(names);
     }
 
+    public int size() {
+        return cars.size();
+    }
+
+    public List<Car> getCars(){
+        return new ArrayList<>(cars);
+    }
+
+    public void moveAll(List<Integer> randomNumbers){
+        for (int i = 0; i < cars.size(); i++) {
+            cars.get(i).move(randomNumbers.get(i));
+        }
+    }
+
+    public List<Car> findCarsWithMaxPosition(){
+        int maxPosition = findMaxPosition();
+        return cars.stream()
+                .filter(car -> car.isAtPosition(maxPosition))
+                .toList();
+    }
+
+    private int findMaxPosition() {
+        return cars.stream()
+                .mapToInt(Car::getPositionValue)
+                .max()
+                .orElse(0);
+    }
+
     private List<Car> createCars(List<Name> names) {
         validateDuplicate(names);
 
