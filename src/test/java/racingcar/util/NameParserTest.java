@@ -5,11 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import racingcar.domain.Name;
-import racingcar.exception.message.ErrorMessage;
 import racingcar.exception.InputParsingException;
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static racingcar.exception.message.ErrorMessage.EMPTY_CAR_NAMES;
 
 class NameParserTest {
 
@@ -43,7 +43,7 @@ class NameParserTest {
     void throwExceptionWhenInvalidInput(String input){
         assertThatThrownBy(()->NameParser.splitWithDelimiter(input))
                 .isInstanceOf(InputParsingException.class)
-                .hasMessage(ErrorMessage.EMPTY_CAR_NAMES.getMessage());
+                .hasMessage(EMPTY_CAR_NAMES.getMessage());
     }
 
 }
