@@ -9,17 +9,21 @@ public class Car {
         this.position = new Position();
     }
 
-    public void move(boolean canMove) {
-        if (canMove) {
+    public String getNameValue(){
+        return name.getValue();
+    }
+
+    public int getPositionValue(){
+        return position.getValue();
+    }
+
+    public void move(int randomNumber) {
+        if (randomNumber >= 4) {
             this.position = position.move();
         }
     }
 
-    public Name getName() {
-        return name;
-    }
-
-    public Position getPosition() {
-        return position;
+    public boolean isAtPosition(int position){
+        return this.getPositionValue() == position;
     }
 }
