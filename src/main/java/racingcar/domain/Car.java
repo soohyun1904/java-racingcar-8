@@ -1,6 +1,8 @@
 package racingcar.domain;
 
 public class Car {
+    private static final int MOVE_THRESHOLD = 4;
+
     private final Name name;
     private  Position position;
 
@@ -18,7 +20,7 @@ public class Car {
     }
 
     public void move(int randomNumber) {
-        if (randomNumber >= 4) {
+        if (randomNumber >= MOVE_THRESHOLD) {
             this.position = position.move();
         }
     }
