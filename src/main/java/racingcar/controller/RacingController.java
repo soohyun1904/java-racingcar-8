@@ -1,11 +1,9 @@
 package racingcar.controller;
 
-import racingcar.domain.Cars;
-import racingcar.dto.RoundResultDto;
+import racingcar.dto.GameResultDto;
 import racingcar.service.RacingService;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
-import java.util.List;
 
 public class RacingController {
     private final InputView inputView;
@@ -21,11 +19,8 @@ public class RacingController {
     public void run(){
         String carNames = inputView.inputCarNames();
         String tryCount = inputView.inputTryCount();
-        Cars cars = racingService.createCars(carNames);
-        List<RoundResultDto> roundResults = racingService.playGame(cars, tryCount);
-        outputView.printRoundResult(roundResults);
-        List<String> winners = racingService.findWinners(cars);
-        outputView.printWinners(winners);
+        GameResultDto gameResultDto = racingService.runGame(carNames, tryCount);
+        outputView.printRoundResult(gameResultDto.getRoundResults());
+        outputView.printWinners(gameResultDto.getWinnerCarNames());
     }
-
 }

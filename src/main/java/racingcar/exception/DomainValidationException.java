@@ -7,6 +7,7 @@ public class DomainValidationException extends IllegalArgumentException {
     public DomainValidationException(){
         super(INVALID_VALUE.getMessage());
     }
+
     public DomainValidationException(ErrorMessage message) {
         super(message.getMessage());
     }

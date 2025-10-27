@@ -22,12 +22,10 @@ public class OutputView {
         System.out.println(WINNER_PREFIX + String.join(WINNER_DELIMITER, winners));
     }
 
-
     private void printCarPositions(List<CarStatusDto> carStatuses){
         for (CarStatusDto carStatus : carStatuses) {
             System.out.println(carStatus.name() + NAME_POSITION_DELIMITER + POSITION_SYMBOL.repeat(carStatus.position()));
         }
         System.out.println();
     }
-
 }
