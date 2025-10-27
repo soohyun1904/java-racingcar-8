@@ -14,12 +14,11 @@ public class Cars{
         this.cars = createCars(names);
     }
 
+    public List<Car> getCars(){
+        return cars;
+    }
     public int size() {
         return cars.size();
-    }
-
-    public List<Car> getCars(){
-        return new ArrayList<>(cars);
     }
 
     public void moveAll(List<Integer> randomNumbers){
@@ -49,7 +48,7 @@ public class Cars{
         for (Name name : names) {
             cars.add(new Car(name));
         }
-        return cars;
+        return List.copyOf(cars);
     }
 
     private void validateDuplicate(List<Name> names) {
