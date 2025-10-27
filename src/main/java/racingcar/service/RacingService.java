@@ -3,7 +3,8 @@ package racingcar.service;
 import racingcar.domain.Car;
 import racingcar.domain.Cars;
 import racingcar.domain.Name;
-import racingcar.dto.CarStatusDto;
+import racingcar.dto.RoundResultDto;
+import racingcar.util.IntegerParser;
 import racingcar.util.NameParser;
 import racingcar.util.NumberGenerator;
 import java.util.ArrayList;
@@ -21,16 +22,21 @@ public class RacingService {
         return new Cars(names);
     }
 
-    public void playRound(Cars cars){
+    public List<RoundResultDto> playGame(Cars cars, String tryCount) {
+        List<RoundResultDto> allRounds = new ArrayList<>();
+        int count = IntegerParser.parse(tryCount);
+        for (int i = 0; i < count; i++) {
+            playRound(cars);
+            RoundResultDto roundResultDto = RoundResultDto.from(cars);
+            allRounds.add(roundResultDto);
+        }
+        return List.copyOf(allRounds);
+    }
+
+    private void playRound(Cars cars){
         int carCount = cars.size();
         List<Integer> randomNumbers = generateRandomNumbers(carCount);
         cars.moveAll(randomNumbers);
-    }
-
-    public List<CarStatusDto> getCarStatuses(Cars cars) {
-        return cars.getCars().stream()
-                .map(CarStatusDto::from)
-                .toList();
     }
 
     public List<String> findWinners(Cars cars){
@@ -44,6 +50,6 @@ public class RacingService {
         for (int i = 0; i < count; i++) {
             numbers.add(numberGenerator.generate());
         }
-        return numbers;
+        return List.copyOf(numbers);
     }
 }

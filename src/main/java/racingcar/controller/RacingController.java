@@ -1,9 +1,8 @@
 package racingcar.controller;
 
 import racingcar.domain.Cars;
-import racingcar.dto.CarStatusDto;
+import racingcar.dto.RoundResultDto;
 import racingcar.service.RacingService;
-import racingcar.util.IntegerParser;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
 import java.util.List;
@@ -21,18 +20,12 @@ public class RacingController {
 
     public void run(){
         String carNames = inputView.inputCarNames();
-        int tryCount = IntegerParser.parse(inputView.inputTryCount());
-
+        String tryCount = inputView.inputTryCount();
         Cars cars = racingService.createCars(carNames);
-
-        outputView.printResultHeader();
-        for (int i = 0; i < tryCount; i++) {
-            racingService.playRound(cars);
-            List<CarStatusDto> statuses = racingService.getCarStatuses(cars);
-            outputView.printRoundResult(statuses);
-        }
-
+        List<RoundResultDto> roundResults = racingService.playGame(cars, tryCount);
+        outputView.printRoundResult(roundResults);
         List<String> winners = racingService.findWinners(cars);
         outputView.printWinners(winners);
     }
+
 }
