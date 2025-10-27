@@ -98,5 +98,29 @@ public class RacingServiceTest {
                 .isInstanceOf(InputParsingException.class)
                 .hasMessage(EMPTY_TRY_COUNT.getMessage());
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "pobi123",
+            "$%^^&!@",
+            "123456",
+            "a1q123",
+            "a!q2자동차",
+            "아예이오우1"
+    })
+    @DisplayName("6글자 이상이면 예외가 발생한다.")
+    void throwExceptionWhenTooLong(String input){
+        assertThatThrownBy(() -> racingService.runGame(input, tryCount))
+                .isInstanceOf(DomainValidationException.class)
+                .hasMessage(INVALID_CAR_NAME_LENGTH.getMessage());
+    }
+
+    @Test
+    @DisplayName("중복된 이름으로 자동차를 생성하면 예외가 발생한다")
+    void throwExceptionWhenDuplicateNames() {
+        assertThatThrownBy(() -> racingService.runGame("pobi,pobi", tryCount))
+                .isInstanceOf(DomainValidationException.class)
+                .hasMessage(DUPLICATE_CAR_NAME.getMessage());
+    }
 }
 
