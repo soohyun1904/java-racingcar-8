@@ -8,12 +8,16 @@ public class TryCount {
 
     private final int value;
 
-    public TryCount(int value) {
-        validate(value);
+    private TryCount(int value) {
         this.value = value;
     }
 
-    private void validate(int value) {
+    public static TryCount of(int value) {
+        validate(value);
+        return new TryCount(value);
+    }
+
+    private static void validate(int value) {
         if (value < MIN_COUNT) {
             throw new InvalidDomainException(INVALID_TRY_COUNT);
         }
