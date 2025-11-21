@@ -1,33 +1,33 @@
 package racingcar.domain.model;
 
 import racingcar.domain.policy.MovePolicy;
+import racingcar.domain.vo.Name;
+import racingcar.domain.vo.Position;
+import java.util.Objects;
 
 public class Car {
     private final Name name;
     private final Position position;
 
-    public Car(Name name) {
-        this(name, new Position());
+    private Car(Name name, Position position) {
+        this.name = Objects.requireNonNull(name);
+        this.position = Objects.requireNonNull(position);
     }
 
-    private Car(Name name, Position position) {
-        this.name = name;
-        this.position = position;
+    public static Car of(Name name) {
+        return new Car(name, Position.initial());
+    }
+
+    public static Car of(Name name, Position position) {
+        return new Car(name, position);
     }
 
     public Car move(MovePolicy movePolicy) {
+        Objects.requireNonNull(movePolicy);
         if (movePolicy.shouldMove()) {
             return new Car(name, position.move());
         }
         return this;
-    }
-
-    public boolean isAheadOf(Car other) {
-        return this.position.isAhead(other.position);
-    }
-
-    public boolean isSamePositionWith(Car other) {
-        return this.position.isSamePosition(other.position);
     }
 
     public Name getName() {
