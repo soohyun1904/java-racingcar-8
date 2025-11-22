@@ -1,6 +1,7 @@
 package racingcar.adapter.in.controller;
 
 import racingcar.adapter.in.console.InputHandler;
+import racingcar.application.dto.response.GameResultResponseDTO;
 import racingcar.application.port.in.GamePlayCommand;
 import racingcar.application.port.in.PlayGameUseCase;
 import racingcar.adapter.out.console.OutputView;
@@ -26,9 +27,8 @@ public class RacingGameController {
             List<String> carNames = retry(inputHandler::readCarNameStrings);
             int tryCount = retry(inputHandler::readTryCountValue);
             GamePlayCommand command = new GamePlayCommand(carNames, tryCount);
-            var result = playGameUseCase.play(command);
+            GameResultResponseDTO result = playGameUseCase.play(command);
             outputView.printGameResult(result);
-
         } catch (Exception e) {
             outputView.printError("게임 실행 중 오류 발생: " + e.getMessage());
             throw e;
